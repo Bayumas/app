@@ -19,6 +19,10 @@ Kode sistemnya ada di repo privat terpisah: `Bayumas/pukis-bayumas`.
 | Dashboard Owner | `https://bayumas.github.io/app/owner/` | PIN owner |
 | Kelola Data | `https://bayumas.github.io/app/admin/` | PIN owner |
 
+Hanya tiga halaman. Laporan toko titip ada sebagai tab di Dashboard
+Owner, dan pengeluaran ada di Kelola Data - bukan halaman terpisah,
+supaya tidak ada dua pintu menuju hal yang sama.
+
 ## Catatan keamanan halaman kasir
 
 Halaman kasir bisa **menulis** data penjualan, barang masuk, dan waste ke
