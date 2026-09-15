@@ -1,0 +1,31 @@
+{
+  "id": "/app/admin/",
+  "name": "Bayumas Kelola Data",
+  "short_name": "Kelola Data",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#8E2B2B",
+  "theme_color": "#1B5E20",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "../ikon/admin-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../ikon/admin-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../ikon/admin-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

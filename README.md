@@ -54,3 +54,13 @@ ganti `src` pada `owner/index.html` dan `admin/index.html`.
   halaman di-refresh. Tidak merusak apa pun.
 - `robots: noindex` dipasang supaya halaman ini tidak muncul di hasil
   pencarian Google.
+
+## Pasang di layar utama
+
+Setiap halaman (kasir, owner, kelola data) punya `manifest.webmanifest`
+sendiri, jadi masing-masing bisa dipasang sebagai ikon terpisah. Ikon
+ada di `ikon/`, dibuat dari logo merpati asli.
+
+`sw.js` hanya menyimpan halaman pembungkus dan ikon di HP. Aplikasi
+di dalamnya tetap dimuat dari Google setiap kali dibuka - permintaan
+ke alamat Google tidak disentuh.
