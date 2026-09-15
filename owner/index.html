@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+<link rel="dns-prefetch" href="https://script.googleusercontent.com">
 <meta name="theme-color" content="#1B5E20">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -12,23 +15,29 @@
 <title>Bayumas — Dashboard Owner</title>
 <style>
   html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#1B5E20}
+  #gulir{position:fixed;top:0;right:0;bottom:0;left:0;overflow:auto;-webkit-overflow-scrolling:touch}
   iframe{border:0;display:block;width:100%;height:100%}
-  #memuat{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
+  #memuat{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;flex-direction:column;align-items:center;
           justify-content:center;background:#1B5E20;color:#fff;font-family:-apple-system,
           BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;gap:14px;z-index:2}
   #memuat .ic{font-size:52px}
   #memuat .tx{font-size:14px;font-weight:700;opacity:.9}
   #memuat.pergi{display:none}
+  #memuat .lambat{display:none;font-size:12px;opacity:.75;max-width:260px;text-align:center;line-height:1.5;padding:0 20px}
+  #memuat.tunggu .lambat{display:block}
 </style>
 </head>
 <body>
 
-<div id="memuat"><div class="ic">📊</div><div class="tx">Memuat dashboard…</div></div>
+<div id="memuat"><div class="ic">📊</div><div class="tx">Memuat dashboard…</div><div class="lambat">Sinyal sedang lambat, halaman masih dimuat. Tidak perlu ditutup.</div></div>
+<script>setTimeout(function () { var m = document.getElementById('memuat'); if (m && m.className.indexOf('pergi') < 0) m.className += ' tunggu'; }, 8000);</script>
 
+<div id="gulir">
 <iframe id="app"
         src="https://script.google.com/macros/s/AKfycbzx2_emp9dDaOUI7LZb4fMTDKqY-DEErFe7wAvuwxHHaWZCosQU_SEN4hKug7qccG46Kg/exec?page=owner"
         allow="camera; clipboard-write"
         onload="document.getElementById('memuat').classList.add('pergi')"></iframe>
+</div>
 
 </body>
 </html>
