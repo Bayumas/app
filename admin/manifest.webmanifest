@@ -1,7 +1,7 @@
 {
   "id": "/app/admin/",
-  "name": "Bayumas Kelola Data",
-  "short_name": "Kelola Data",
+  "name": "Bayumas Admin",
+  "short_name": "Admin",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

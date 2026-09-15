@@ -17,10 +17,10 @@ Kode sistemnya ada di repo privat terpisah: `Bayumas/pukis-bayumas`.
 | Menu | `https://bayumas.github.io/app/` | — |
 | Kasir | `https://bayumas.github.io/app/kasir/` | PIN cabang, bila sudah diatur |
 | Dashboard Owner | `https://bayumas.github.io/app/owner/` | PIN owner |
-| Kelola Data | `https://bayumas.github.io/app/admin/` | PIN owner |
+| Admin | `https://bayumas.github.io/app/admin/` | PIN owner |
 
 Hanya tiga halaman. Laporan toko titip ada sebagai tab di Dashboard
-Owner, dan pengeluaran ada di Kelola Data - bukan halaman terpisah,
+Owner, dan pengeluaran ada di Admin - bukan halaman terpisah,
 supaya tidak ada dua pintu menuju hal yang sama.
 
 ## Catatan keamanan halaman kasir
@@ -30,7 +30,7 @@ spreadsheet. Selama PIN cabang belum diatur, siapa pun yang menemukan
 alamat ini bisa memasukkan data palsu — dan alamat yang rapi jauh lebih
 mudah ditemukan daripada URL Apps Script yang panjang dan acak.
 
-PIN cabang diatur owner lewat halaman Kelola Data, tab **Cabang**. Berlaku
+PIN cabang diatur owner lewat halaman Admin, tab **Cabang**. Berlaku
 per cabang: begitu satu cabang diberi PIN, cabang itu langsung terlindungi
 tanpa perlu deploy ulang. Cabang yang belum diatur ditandai merah di sana.
 
@@ -57,7 +57,7 @@ ganti `src` pada `owner/index.html` dan `admin/index.html`.
 
 ## Pasang di layar utama
 
-Setiap halaman (kasir, owner, kelola data) punya `manifest.webmanifest`
+Setiap halaman (kasir, owner, admin) punya `manifest.webmanifest`
 sendiri, jadi masing-masing bisa dipasang sebagai ikon terpisah. Ikon
 ada di `ikon/`, dibuat dari logo merpati asli.
 

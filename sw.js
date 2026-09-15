@@ -2,10 +2,10 @@
 //
 // Yang disimpan di HP HANYA halaman pembungkus dan ikon - supaya app
 // yang dipasang di layar utama langsung menampilkan layar pembuka
-// walau sinyal jelek. Aplikasinya sendiri (kasir, dashboard, kelola
-// data) tetap dimuat dari Google setiap kali dibuka: permintaan ke
+// walau sinyal jelek. Aplikasinya sendiri (kasir, dashboard,
+// admin) tetap dimuat dari Google setiap kali dibuka: permintaan ke
 // alamat lain tidak disentuh sama sekali.
-var VERSI = 'bayumas-pembungkus-v1';
+var VERSI = 'bayumas-pembungkus-v2';
 var INTI = [
   './', './kasir/', './owner/', './admin/',
   './ikon/kasir-192.png', './ikon/owner-192.png', './ikon/admin-192.png'
