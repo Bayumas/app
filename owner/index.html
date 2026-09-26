@@ -31,6 +31,15 @@
   #pasang button{border:0;border-radius:9px;font-weight:800;font-size:13px;cursor:pointer;min-height:38px;margin-left:8px}
   #pasang-ok{background:#FFC051;color:#5A1A1A;padding:0 14px}
   #pasang-x{background:transparent;color:#fff;opacity:.8;font-size:20px;padding:0 6px}
+  #izin{position:fixed;left:0;right:0;bottom:0;z-index:4;display:none;align-items:center;
+        padding:11px 13px;background:#5A1A1A;color:#fff;font-size:13px;line-height:1.4;
+        padding-bottom:calc(11px + env(safe-area-inset-bottom))}
+  #izin.tampil{display:flex}
+  #izin .tx{flex:1;min-width:0}
+  #izin button{border:0;border-radius:9px;font-weight:800;font-size:13px;cursor:pointer;
+               min-height:38px;margin-left:8px;font-family:inherit}
+  #izin-ok{background:#FFC051;color:#5A1A1A;padding:0 14px}
+  #izin-x{background:transparent;color:#fff;opacity:.8;font-size:20px;padding:0 6px}
   iframe{border:0;display:block;width:100%;height:100%}
   #memuat{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;flex-direction:column;align-items:center;
           justify-content:center;background:#8E2B2B;color:#fff;font-family:-apple-system,
@@ -46,6 +55,12 @@
 
 <div id="memuat"><div class="ic">📊</div><div class="tx">Memuat dashboard…</div><div class="lambat">Sinyal sedang lambat, halaman masih dimuat. Tidak perlu ditutup.</div></div>
 <script>setTimeout(function () { var m = document.getElementById('memuat'); if (m && m.className.indexOf('pergi') < 0) m.className += ' tunggu'; }, 8000);</script>
+
+<div id="izin">
+  <div class="tx">Tampilkan angka di ikon aplikasi kalau ada yang perlu dikerjakan?</div>
+  <button id="izin-ok" type="button">Aktifkan</button>
+  <button id="izin-x" type="button" aria-label="Tutup">&times;</button>
+</div>
 
 <div id="gulir">
 <iframe id="app"
@@ -68,6 +83,56 @@
       navigator.serviceWorker.register('../sw.js', { scope: '../' })['catch'](function () {});
     });
   }
+
+
+  // ── ANGKA DI IKON (BADGE) ──
+  //
+  // Isinya dihitung di dalam aplikasi, tapi yang boleh memasang badge
+  // cuma halaman TERATAS. Aplikasinya sendiri berjalan di dalam iframe
+  // milik Google, jadi angkanya dikirim ke sini lewat postMessage.
+  //
+  // Dua syarat di luar kendali kita: app harus sudah dipasang ke
+  // homescreen, dan di iPhone izin notifikasi harus diberikan. Kalau
+  // salah satu tidak terpenuhi, badge-nya diam saja - tidak boleh
+  // sampai menggagalkan apa pun.
+  var ASAL_GOOGLE = /^https:\/\/([a-z0-9-]+\.)*(googleusercontent|google)\.com$/;
+
+  function pasangBadge(n) {
+    try {
+      if (!('setAppBadge' in navigator)) return;
+      if (n > 0) navigator.setAppBadge(n); else navigator.clearAppBadge();
+    } catch (e) { /* ditolak browser - abaikan */ }
+  }
+
+  window.addEventListener('message', function (e) {
+    if (!ASAL_GOOGLE.test(e.origin)) return;          // hanya dari aplikasi kita
+    var d = e.data;
+    if (!d || d.bayumas !== 'badge') return;
+    pasangBadge(Number(d.n) || 0);
+  });
+
+  // ── izin notifikasi ──
+  // Di iPhone badge tidak muncul tanpa izin ini, dan izinnya cuma bisa
+  // diminta dari ketukan orangnya - bukan dari pesan iframe.
+  var kunciIzin = 'bayumas-badge-izin-ditutup';
+  function siapkanIzin() {
+    if (!('setAppBadge' in navigator) || !('Notification' in window)) return;
+    if (Notification.permission !== 'default') return;
+    try { if (localStorage.getItem(kunciIzin)) return; } catch (e) { /* mode privat */ }
+
+    var bar = document.getElementById('izin');
+    if (!bar) return;
+    bar.className = 'tampil';
+    document.getElementById('izin-ok').onclick = function () {
+      bar.className = '';
+      try { Notification.requestPermission(); } catch (e) { /* browser lama */ }
+    };
+    document.getElementById('izin-x').onclick = function () {
+      bar.className = '';
+      try { localStorage.setItem(kunciIzin, '1'); } catch (e) { /* mode privat */ }
+    };
+  }
+  setTimeout(siapkanIzin, 2500);
 
   // Tanpa sinyal, iframe Google hanya menampilkan halaman error browser.
   // Lebih jelas kalau layar pembuka yang memberi tahu.
